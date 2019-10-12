@@ -1,23 +1,37 @@
-import React, { Component } from 'react';
-import './app.css';
-import ReactImage from './react.png';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Audience from "./Audience";
+import IncomingRequests from "./IncomingRequests";
 
-export default class App extends Component {
-  state = { username: null };
-
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = "./login";
   }
-
+}
+class App extends Component {
   render() {
-    const { username } = this.state;
     return (
-      <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div>
+        <Router>
+          <div className="App">
+            <Route exact path="/" component={Audience} />
+            <Route exact path="/incomingrequests" component={IncomingRequests} />
+            <Route path="*" component={Audience} />
+          </div>
+        </Router>
     );
   }
 }
+export default App;

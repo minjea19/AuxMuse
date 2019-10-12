@@ -1,0 +1,36 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.requests{
+    height: 100vh;
+    width: 100vw;
+    background-image: url('./pictures/background_nogirl.png');
+    background-repeat:no-repeat;
+    background-size:cover;
+    display: flex;
+    justify-content: center;
+}
+
+.requests_center{
+    margin: auto;
+    height: 90%;
+    width: 90%;
+    overflow: scroll;
+}
+
+.incoming_text{
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+.requested_songs{
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 10%;
+    color: #f2f2f2;
+    display: block;
+}
